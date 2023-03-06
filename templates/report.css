@@ -1,0 +1,41 @@
+/* Apply a background color to the whole page */
+body {
+    background-color: #f5f5f5;
+  }
+  
+  /* Center align the h1 element */
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 2rem;
+  }
+  
+  /* Style the table */
+  table {
+    margin: auto;
+    width: 80%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+  
+  /* Style the table headers */
+  th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: left;
+    padding: 0.5rem;
+  }
+  
+  /* Style the table rows */
+  td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+  }
+  
+  /* Add hover effect on table rows */
+  tr:hover {
+    background-color: #f2f2f2;
+  }
+  

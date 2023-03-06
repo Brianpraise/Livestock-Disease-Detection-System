@@ -1,0 +1,128 @@
+<!doctype html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report</title>
+  <style>
+    /* CSS rules go here */
+    body {
+      background-color: lightblue;
+    }
+    h1 {
+      color: #4d4d4d;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      margin: 0 auto;
+      width: 80%;
+      max-width: 800px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fafafa;
+    }
+</style>
+</head>
+<html>
+  <head>
+    <title>Livestock Report</title>
+  </head>
+  <body>
+    <h1>Livestock Disease Report</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Animal Name</th>
+          <th>Symptom 1</th>
+          <th>Symptom 2</th>
+          <th>Symptom 3</th>
+          <th>Symptom 4</th>
+          <th>Symptom 5</th>
+          <th>Disease</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+          <td>{{ row[3] }}</td>
+          <td>{{ row[4] }}</td>
+          <td>{{ row[5] }}</td>
+          <td>{{ row[6] }}</td>
+          <td>{{ row[7] }}</td>
+          <td>{{ row[8] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button id="download-btn" style="position: absolute; top: 20px; right: 20px;  padding: 10px; border-radius: 5px; background-color: lightgreen;">Download Report</button>
+<script>
+  var downloadBtn = document.getElementById('download-btn');
+  downloadBtn.addEventListener('click', function() {
+    // Add the download button script here
+
+    var table = document.getElementsByTagName('table')[0];
+
+    // Create an array of arrays to hold the table data
+    var tableData = [];
+    var headers = [];
+    var rows = table.rows;
+    for (var i = 0; i < rows.length; i++) {
+      var cells = rows[i].cells;
+      if (i === 0) {
+        // Save the table headers
+        for (var j = 0; j < cells.length; j++) {
+          headers.push(cells[j].textContent);
+        }
+      } else {
+        // Save the table data rows
+        var rowData = [];
+        for (var k = 0; k < cells.length; k++) {
+          rowData.push(cells[k].textContent);
+        }
+        tableData.push(rowData);
+      }
+    }
+
+    // Convert the table data to a CSV string
+    var csvString = headers.join(',') + '\n';
+    for (var i = 0; i < tableData.length; i++) {
+      csvString += tableData[i].join(',') + '\n';
+    }
+
+    // Create a blob and download it as a file
+    var blob = new Blob([csvString], { type: 'text/csv' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'report.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+   
+  });
+</script>
+
+  </body>
+</html>
+
